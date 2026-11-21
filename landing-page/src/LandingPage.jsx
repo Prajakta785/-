@@ -479,44 +479,6 @@ function FloatingBar() {
   );
 }
 
-/* ─── Scroll-to-top ─── */
-function ScrollToTop() {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const checkScroll = () => {
-      const top = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-      setShow(top > 250);
-    };
-    window.addEventListener('scroll', checkScroll, { passive: true });
-    document.addEventListener('scroll', checkScroll, { passive: true });
-    checkScroll();
-    return () => {
-      window.removeEventListener('scroll', checkScroll);
-      document.removeEventListener('scroll', checkScroll);
-    };
-  }, []);
-  if (!show) return null;
-  return (
-    <button
-      type="button"
-      className="scroll-top-btn"
-      onClick={() => {
-        try {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
-          document.body.scrollTo({ top: 0, behavior: 'smooth' });
-        } catch (_) {
-          window.scrollTo(0, 0);
-        }
-      }}
-      aria-label="वर जा"
-      title="वर जा"
-    >
-      ↑
-    </button>
-  );
-}
-
 /* ─── Main Page ─── */
 export default function LandingPage({ onSecretAdminAccess }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -888,9 +850,6 @@ export default function LandingPage({ onSecretAdminAccess }) {
 
       {/* ─── FLOATING MOBILE BAR ─── */}
       <FloatingBar />
-
-      {/* ─── SCROLL TO TOP ─── */}
-      <ScrollToTop />
     </div>
   );
 }
